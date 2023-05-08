@@ -1,0 +1,151 @@
+﻿
+@model EmployeeSkillsManagement.Models.HomeIndex;
+
+@using (Html.BeginForm("Index","Home",FormMethod.Get))
+
+{
+
+<div class="container mt-3">
+ <div class="row">
+  <div class="col-6">
+   <div mt-1> Search by Name</div>
+    <input class="form-control" type="text" name="name" />
+   <div class="mt-3">
+    <div> Search by Expert Level</div>
+        <select class="form-control" name="Level" id="expertLevel">
+        <option value="" selected disabled hidden></option>
+        <option value="Fresher">Fresher</option>
+        <option value="Developer">Developer</option>
+        <option value="Senior Developer">Senior Developer</option>
+        <option value="Solution Archietect">Solution Archietect</option>
+        </select>
+
+    </div>
+
+    </div>
+
+   <div class="col-6">
+
+ <div> Search by Skills</div>
+
+        <select class="form-control" name="skillId" id="skill" onfocus='this.size=5;'>
+
+        <option value="" selected disabled hidden></option>
+
+                @foreach (var item in Model.skills)
+
+                {
+
+                <option value="@item.Id">@item.Skills</option>
+
+                }
+
+        </select>
+
+ </div>
+
+ </div>
+
+</div>
+
+
+
+
+
+<div class=" ml-3 mt-3 mb-3 width-50px">
+
+ <input type="submit" class="btn btn-sm btn-warning " value="Search Employees"/>
+
+</div>
+ 
+   <div class=" ml-3 mt-3 mb-3 width-50px">
+    Total Count: @Model.employees.Count
+    @{
+
+     var data = new Dictionary<string,List<Employee>>
+
+      {
+
+         {"list", Model.employees.ToList()}
+
+     };
+
+   }
+    <a class="btn btn-sm btn-secondary " asp-action="ExportExcel" asp-controller="Home">&nbsp Export to Excel</a>
+   </div> 
+
+}
+<div>
+
+ <table class="table table-bordered table-striped table-sm">
+
+    <thead>
+
+        <tr>
+
+        <th>#</th>
+
+            <th>Name</th>
+            <th>Date Of Joining</th>
+            <th>Designation</th> 
+            <th>Email</th>
+
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @{
+
+        var i = 1;
+
+        }
+
+        @if (Model.employees.Count>0)
+
+        {
+
+            @foreach (var item in Model.employees)
+
+            {
+
+                <tr>
+
+                        <td>@i</td>
+
+                        <td>@item.FirstName @item.LastName</td>
+
+                        <td>@item.DOJ.ToString("dd/MM/yyyy")</td>
+
+                        <td>@item.Designation</td>
+
+                        <td>@item.Email</td>
+
+                        <td>
+
+                        <a  class="btn btn-info btn-sm" asp-controller="EmployeeSkill" asp-action="Index" asp-route-id="@item.Id"> View Skills</a>
+
+                        </td>
+
+                </tr>
+
+                {
+
+                i+=1;
+
+                }
+
+            }
+
+         }
+
+    </tbody>
+
+ </table>
+
+</div>
+
+

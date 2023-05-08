@@ -1,0 +1,63 @@
+@model IEnumerable<Skill>
+
+@using (Html.BeginForm("Create","EmployeeSkill",FormMethod.Post))
+{
+<div class="border container mt-3" style="width: 700px;">
+       <div class="row pb-2">
+            <h2 class="text-primary">Assign Skill <hr /></h2>
+            
+        </div>
+
+    <div >
+       <div class="col-10">
+                  <div> Experience</div>
+                <select class="form-control" name="experience" id="expertLevel" required>
+                    <option value="" selected disabled hidden></option>
+                    @for (int i = 1; i < 31; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                    
+                </select>
+          </div>
+          <div class="mt-3 col-10">
+            <div> Expert Level</div>
+                <select class="form-control" name="level" id="expertLevel" required>
+                    <option value="" selected disabled hidden></option>
+                    <option value="Fresher">Fresher</option>
+                    <option value="Developer">Developer</option>
+                    <option value="Senior Developer">Senior Developer</option>
+                    <option value="Solution Archietect">Solution Archietect</option>
+                </select>
+         </div>
+    </div>
+        <div class=" mt-3 col-10">
+            <div> Skills</div>
+            <select class="form-control" name="skillId" id="skill" onfocus='this.size=5;'>
+                <option value="" selected disabled hidden></option>
+                @foreach (var item in Model)
+                {
+                    <option value="@item.Id">@item.Skills</option>
+                }
+            </select>
+        </div>
+
+        <div class=" ml-3 mt-3 mb-3 width-50px">
+            <input type="submit" class="btn btn-sm btn-warning" value="Assign Skill"/>
+            <a asp-controller="Employee" asp-action="Index" class="btn btn-secondary" >
+                Back to List
+            </a>
+        </div>
+
+    
+</div>
+
+
+
+}
+
+@section Scripts{
+    @{
+      <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -1,0 +1,33 @@
+@model IEnumerable<ViewSkill>
+@{
+    ViewData["Title"] = "EmployeeSkill Page";
+} 
+ 
+<table class="table table-bordered table-striped mt-3" style="width: 700px;" id="myTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Skill</th>
+            <th>Level</th>
+            <th>Experience</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var employeeSkill in Model)
+        {
+            <tr>
+                <td><a asp-controller="EmployeeSkill" asp-action="Delete" asp-route-id="@employeeSkill.empSkillId" class="btn btn-danger"> Remove</a></td>
+                <td>@employeeSkill.name</td>
+                <td>@employeeSkill.level</td>
+                <td>@employeeSkill.experience</td>
+            </tr>
+        } 
+    </tbody>
+</table>
+
+<div class=" ml-3 mt-3 mb-3 width-50px">
+   
+    <a asp-controller="Employee" asp-action="Index" class="btn btn-secondary" style="width: 150px;">
+        Back to List
+      </a>
+</div>

@@ -1,0 +1,50 @@
+
+@model IEnumerable<Skill>
+@{
+    ViewData["Title"] = "Skills Page";
+}
+
+
+
+<div class="border mt-3 mb-3 width-50px">
+    <a  asp-controller="Skill" asp-action="Create">Click to add Skills</a>
+</div>
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Skills
+            </th>
+            
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @* @foreach (var obj in Model) *@
+         @foreach (var obj in Model.Select((value,i) => new {i, value}))
+        {
+            <tr>
+                <td >
+                    @((@obj.i)+1)
+                </td>
+                <td >
+                    @obj.value.Skills
+                </td>
+                
+                 <td>
+                    <div>
+                
+                    <a asp-controller="Skill" asp-action="Delete" asp-route-id="@obj.value.Id" 
+                        class="btn btn-sm btn-danger "> Delete</a>
+                    </div>
+                </td> 
+            </tr>
+        }
+    </tbody>
+</table>
